@@ -23,14 +23,6 @@ public class ControladorPersona implements ActionListener {
         this.VistaPersonas = VistaPersonas;
         this.PersonasModelo = PersonasModelo;
         
-        
-        this.TablaPersonas.addColumn("Apellidos");
-        this.TablaPersonas.addColumn("Nombres");
-        this.TablaPersonas.addColumn("Telefono");
-        
-        this.VistaPersonas.jtTablaPersonas.setModel(TablaPersonas);
-
-        
         this.VistaPersonas.btnAgregar.addActionListener(this);
         this.VistaPersonas.btnListar.addActionListener(this);
         
@@ -49,6 +41,11 @@ public class ControladorPersona implements ActionListener {
         
         if(e.getSource()==this.VistaPersonas.btnAgregar)
         {
+            this.PersonasModelo.AgregarUsuarios(this.VistaPersonas.txtApellidos.getText(),
+            this.VistaPersonas.txtNombres.getText(), this.VistaPersonas.txtTelefono.getText());
+            this.VistaPersonas.txtApellidos.setText("");
+            this.VistaPersonas.txtNombres.setText("");
+            this.VistaPersonas.txtTelefono.setText(""); 
 
             
             JOptionPane.showMessageDialog(null, "Persona Agregada");
@@ -56,12 +53,8 @@ public class ControladorPersona implements ActionListener {
         
         if(e.getSource()==this.VistaPersonas.btnListar)
         {
-            this.PersonasModelo.AgregarUsuarios(this.VistaPersonas.txtApellidos.getText(),
-                    this.VistaPersonas.txtNombres.getText(), this.VistaPersonas.txtTelefono.getText());
+            this.VistaPersonas.jtTablaPersonas.setModel(this.PersonasModelo.ListarPersonas());
         }
-        this.TablaPersonas.addRow(new Object[]{this.PersonasModelo.ListaPersonas.get(0).getApellidos(),
-            this.PersonasModelo.ListaPersonas.get(0).getNombres(),this.PersonasModelo.ListaPersonas.get(0).getTelefono()});
-      
     }
     
 }
